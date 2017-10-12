@@ -21,7 +21,6 @@ def lambda_handler(event, context):
     cr = csv.reader(io.TextIOWrapper(res), delimiter=" ", skipinitialspace=True)
 
     indices = [c[2] for c in cr]
-    delete_indices = []
 
     METHOD = "DELETE"
     for i in indices:
@@ -29,7 +28,6 @@ def lambda_handler(event, context):
             continue
 
         if not i.endswith(keep_suffix):
-            delete_indices.append(i)
             request = urllib.request.Request(endpoint+"/"+i)
             request.get_method = lambda: METHOD
             response = urllib.request.urlopen(request)
