@@ -10,6 +10,7 @@ def lambda_handler(event, context):
 
     endpoint = os.environ.get('ES_ENDPOINT')
     older_than = os.environ.get('OLDER_THAN', 30)
+    method = os.environ.get('METHOD', "HEAD")
 
     today = datetime.date.today()
 
@@ -22,7 +23,7 @@ def lambda_handler(event, context):
 
     indices = [c[2] for c in cr]
 
-    METHOD = "DELETE"
+    METHOD = method
     for i in indices:
         if i.startswith("."):
             continue
